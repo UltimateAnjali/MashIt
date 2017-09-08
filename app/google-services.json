@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "780330760801",
+    "firebase_url": "https://hotornot-71f6a.firebaseio.com",
+    "project_id": "hotornot-71f6a",
+    "storage_bucket": "hotornot-71f6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:780330760801:android:0681c0a8d22f0cf0",
+        "android_client_info": {
+          "package_name": "com.example.mashit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "780330760801-45l68iv21gv493q9em7gmr5nlhvn0dv6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOQGzdiJqPQYnEQiScnH7gMKg3JjacWgE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
