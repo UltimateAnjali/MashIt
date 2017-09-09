@@ -6,8 +6,19 @@
     android:layout_height="match_parent"
     tools:context="com.example.mashit.LoginActivity">
 
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:id="@+id/login_status_text"
+       android:text="Login Status"
+       android:layout_marginTop="50dp"
+       android:layout_centerHorizontal="true"
+       android:textSize="20sp"/>
 
     <com.facebook.login.widget.LoginButton
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/fb_login_btn"
+        android:layout_centerInParent="true"/>
+
 </RelativeLayout>
