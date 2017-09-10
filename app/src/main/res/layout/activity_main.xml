@@ -26,12 +26,14 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:id="@+id/hotImage"
                 android:src="@drawable/flame"
                 android:layout_weight="1"
                 android:layout_gravity="center" />
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:id="@+id/skipImage"
                 android:src="@drawable/right_arrow"
                 android:layout_weight="1"
                 android:layout_gravity="center" />
