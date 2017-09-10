@@ -40,10 +40,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
         setContentView(R.layout.activity_main);
+
         imageView = (ImageView) findViewById(R.id.profileImage);
         mAdView = (AdView) findViewById(R.id.adView);
         hot = (ImageView) findViewById(R.id.hotImage);
@@ -51,15 +49,21 @@ public class MainActivity extends AppCompatActivity {
 
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-        Glide.with(getApplicationContext()).load("http://graph.facebook.com/1560580777339457/picture?width=9999").fitCenter().into(imageView);
+
+        Glide.with(getApplicationContext())
+                .load("http://graph.facebook.com/1560580777339457/picture?width=9999")
+                .fitCenter()
+                .into(imageView);
+
         Bundle bundle = this.getIntent().getExtras();
 
         if(bundle!=null)
         {
             userData= (UserData) bundle.getSerializable("userObject");
-
         }
+
         getFriends();
+
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
                                            dataSnapshotScore.getRef().setValue(temp + 1);
 
                                            newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).setValue(id);
-
                                        }
                                        i++;
                                        getFriends();
@@ -103,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
                                 }
                             });
-
                         }
 
                         @Override
@@ -151,9 +153,12 @@ public class MainActivity extends AppCompatActivity {
 
                                                                if(userFriendData.getProfilePicUri()!=null && !userData.getGender().equals(userFriendData.getGender()))
                                                                {
-                                                                   Glide.with(getApplicationContext()).load(Uri.parse(userFriendData.getProfilePicUri())).fitCenter().into(imageView);
-
+                                                                   Glide.with(getApplicationContext())
+                                                                           .load(Uri.parse(userFriendData.getProfilePicUri()))
+                                                                           .fitCenter()
+                                                                           .into(imageView);
                                                                }
+
                                                                newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).setValue(id);
                                                            }else{
                                                                i++;
@@ -167,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
                                                        }
                                                    });
 
-
                                                }else {
 
                                                }
@@ -179,9 +183,7 @@ public class MainActivity extends AppCompatActivity {
                                            }
                                        });
 
-
                                    }else{
-
                                         Toast.makeText(getApplicationContext(),"No more friends left,Please invite your friends",Toast.LENGTH_SHORT).show();
                                    }
 //                                    JSONObject data = jsonObject.getJSONObject("data");
@@ -203,9 +205,5 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle parameters = new Bundle();
         parameters.putString("fields", "id,name,link,picture");
-
     }
-
-
-
 }

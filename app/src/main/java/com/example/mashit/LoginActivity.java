@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
     UserData userData;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -64,28 +65,26 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser()!=null)
                 {
-
                     SharedPreferences sharedpreferences = getSharedPreferences("myRef", Context.MODE_PRIVATE);
                     String fbId = sharedpreferences.getString("fbId","none");
                     if(!fbId.equals("none"))
                     {
                         AddUser(fbId);
                     }else {
-
                         FirebaseAuth.getInstance().signOut();
                     }
-
-
                 }else{
 
                 }
             }
         };
+
         mAuth = FirebaseAuth.getInstance();
         loginButton = (LoginButton)findViewById(R.id.fb_login_btn);
         textView = (TextView)findViewById(R.id.login_status_text);
         callbackManager = CallbackManager.Factory.create();
         loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_birthday", "user_friends"));
+
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(final LoginResult loginResult) {
@@ -108,7 +107,6 @@ public class LoginActivity extends AppCompatActivity {
                                         String email = object.optString("email");
                                         userData.setEmailId(email);
                                     }
-
                                     if (!object.optString("gender").equals("")) {
                                         String gender = object.optString("gender");
                                         userData.setGender(gender);
@@ -116,13 +114,12 @@ public class LoginActivity extends AppCompatActivity {
                                     if (!object.optString("name").equals("")) {
                                         userData.setName(object.optString("name"));
                                     }
-
                                     if(!object.optString("id").equals(""))
                                     {
                                         userData.setFbId(object.optString("id"));
-
                                         userData.setProfilePicUri("http://graph.facebook.com/"+userData.getFbId()+"/picture?width=9999");
                                     }
+
                                     SharedPreferences sharedpreferences = getSharedPreferences("myRef", Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedpreferences.edit();
                                     editor.clear();
@@ -158,7 +155,6 @@ public class LoginActivity extends AppCompatActivity {
                 {
                     AddUser(userData.getFbId());
                     Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_SHORT).show();
-
                 }else{
                     Toast.makeText(getApplicationContext(), "Authentication failed.",
                             Toast.LENGTH_SHORT).show();
