@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+//        FirebaseAuth.getInstance().signOut();
     }
 
     @Override

@@ -21,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     ImageView hot,skip;
     UserData userData;
-    String id;
+    static String id;
     static int i=0;
 
     @Override
@@ -75,13 +76,34 @@ public class MainActivity extends AppCompatActivity {
                     final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                     databaseReference.child("HotOrNot").child(id).child("hotScore").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot!=null) {
-                                int temp = dataSnapshot.getValue(Integer.class);
-                                dataSnapshot.getRef().setValue(temp + 1);
-                            }
-                            i++;
-                            getFriends();
+                        public void onDataChange(final DataSnapshot dataSnapshotScore) {
+
+                           final DatabaseReference newOne = FirebaseDatabase.getInstance().getReference();
+
+                            newOne.child("HotOrNot").child("UserViewedList").orderByValue().equalTo(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                   if(!dataSnapshot.exists()) {
+                                       if (dataSnapshotScore != null) {
+                                           int temp = dataSnapshotScore.getValue(Integer.class);
+                                           dataSnapshotScore.getRef().setValue(temp + 1);
+
+                                           newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).setValue(id);
+
+                                       }
+                                       i++;
+                                       getFriends();
+                                   }else{
+
+                                   }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
                         }
 
                         @Override
