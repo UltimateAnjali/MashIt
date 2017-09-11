@@ -1,5 +1,6 @@
 package com.example.mashit;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -205,5 +206,11 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle parameters = new Bundle();
         parameters.putString("fields", "id,name,link,picture");
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+        startActivity(intent);
     }
 }
