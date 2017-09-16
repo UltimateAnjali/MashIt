@@ -1,6 +1,7 @@
 package com.example.mashit;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -147,6 +148,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
 
+
                 Bundle parameters = new Bundle();
                 parameters.putString("fields", "id,name,email,gender,birthday");
                 request.setParameters(parameters);
@@ -193,6 +195,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Intent intent;
+                Fragment fragment = new Fragment();
                 Bundle bundle = null;
 
                 if(dataSnapshot.exists())
@@ -214,6 +217,8 @@ public class LoginActivity extends AppCompatActivity {
                     intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
+
+                    //fragment.setArguments(bundle);
                 }
             }
 

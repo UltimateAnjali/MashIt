@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mashit.UserProfile">
+    tools:context="com.example.mashit.UserProfileFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/view_text"
-            android:text="You will be viewed as:"
+            android:text="You will be viewed as"
             android:textSize="15sp"
             android:textColor="@color/colorBlack"
             android:layout_gravity="center"
@@ -51,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/hotness_score"
-            android:text="Your hotness score is: "
+            android:text="Your hotness score is"
             android:textSize="15sp"
             android:textColor="@color/colorBlack"
             android:layout_gravity="center"
@@ -60,28 +59,5 @@
             android:layout_marginTop="4dp" />
 
     </LinearLayout>
-
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/bottom_navigation"
-        android:layout_marginBottom="5dp"
-        android:layout_centerHorizontal="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-2924610599659520/8333827117">
-    </com.google.android.gms.ads.AdView>
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@drawable/nav_item_color_state"
-        app:itemTextColor="@drawable/nav_item_color_state"
-        app:menu="@menu/bottom_nav_items" />
 
 </RelativeLayout>
