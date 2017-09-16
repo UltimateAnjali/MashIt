@@ -17,6 +17,7 @@ public class UserData implements Serializable{
     private int hotScore;
     private String gender;
     private String profilePicUri;
+
     public UserData(){
 
         this.hotScore=0;
