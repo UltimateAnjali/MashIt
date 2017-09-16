@@ -16,6 +16,7 @@
         android:layout_marginBottom="50dp"
         android:text="Login with Facebook"
         android:textAllCaps="false"
+        style="@style/myButton"
         android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

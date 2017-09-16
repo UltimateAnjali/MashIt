@@ -1,11 +1,16 @@
 package com.example.mashit;
 
+import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -31,27 +36,49 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private AdView mAdView;
     ImageView imageView;
     ImageView hot,skip;
     UserData userData;
     static String id;
     static int i=0;
+    TextView friend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
         setContentView(R.layout.activity_main);
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
         imageView = (ImageView) findViewById(R.id.profileImage);
         mAdView = (AdView) findViewById(R.id.adView);
         hot = (ImageView) findViewById(R.id.hotImage);
         skip = (ImageView) findViewById(R.id.skipImage);
+        friend = (TextView)findViewById(R.id.friend_name);
 
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.profile:
+                                Intent intent = new Intent(getApplicationContext(),UserProfile.class);
+                                startActivity(intent);
+
+                        }
+                        return true;
+                    }
+                });
+
+       /* Glide.with(getApplicationContext())
+                .load("http://graph.facebook.com/1560580777339457/picture?width=9999")
+                .fitCenter()
+                .into(imageView);*/
+
 //        Glide.with(getApplicationContext()).load("http://graph.facebook.com/1560580777339457/picture?width=9999").fitCenter().into(imageView);
         Bundle bundle = this.getIntent().getExtras();
 
@@ -159,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
                                                                if(userFriendData!=null && userFriendData.getProfilePicUri()!=null && !(userFriendData.getGender().equals(userData.getGender())))
                                                                {
                                                                    Glide.with(getApplicationContext()).load(Uri.parse(userFriendData.getProfilePicUri())).fitCenter().into(imageView);
+                                                                   friend.setText(userFriendData.getName());
 
                                                                }else {
                                                                    i++;
@@ -194,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
 
                                    }else{
                                        Glide.with(getApplicationContext()).load(R.drawable.nofriendspic).fitCenter().into(imageView);
-
+                                       friend.setText("");
                                        Toast.makeText(getApplicationContext(),"No more friends left,Please invite your friends",Toast.LENGTH_SHORT).show();
                                        hot.setEnabled(false);
                                        skip.setEnabled(false);
