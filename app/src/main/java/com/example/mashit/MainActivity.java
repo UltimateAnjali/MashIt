@@ -144,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
                                        System.out.println("---> name="+name+" id="+id);
                                        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                                        databaseReference.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+
                                            @Override
                                            public void onDataChange(final DataSnapshot dataSnapshotOne) {
                                                if(!dataSnapshotOne.exists())
