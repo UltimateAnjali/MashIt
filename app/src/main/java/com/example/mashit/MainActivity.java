@@ -17,6 +17,7 @@ import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-        Glide.with(getApplicationContext()).load("http://graph.facebook.com/1560580777339457/picture?width=9999").fitCenter().into(imageView);
+//        Glide.with(getApplicationContext()).load("http://graph.facebook.com/1560580777339457/picture?width=9999").fitCenter().into(imageView);
         Bundle bundle = this.getIntent().getExtras();
 
         if(bundle!=null)
@@ -63,8 +64,15 @@ public class MainActivity extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                i++;
-                getFriends();
+                DatabaseReference newOne = FirebaseDatabase.getInstance().getReference();
+                newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).child(id).getRef().setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        i++;
+                        getFriends();
+                    }
+                });
+
             }
         });
 
@@ -80,16 +88,14 @@ public class MainActivity extends AppCompatActivity {
 
                            final DatabaseReference newOne = FirebaseDatabase.getInstance().getReference();
 
-                            newOne.child("HotOrNot").child("UserViewedList").orderByValue().equalTo(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                            newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                    if(!dataSnapshot.exists()) {
                                        if (dataSnapshotScore != null) {
                                            int temp = dataSnapshotScore.getValue(Integer.class);
                                            dataSnapshotScore.getRef().setValue(temp + 1);
-
-                                           newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).setValue(id);
-
+                                           newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).child(id).getRef().setValue(true);
                                        }
                                        i++;
                                        getFriends();
@@ -137,24 +143,27 @@ public class MainActivity extends AppCompatActivity {
                                        id = jsonObject.getString("id");
                                        System.out.println("---> name="+name+" id="+id);
                                        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                                       databaseReference.child("HotOrNot").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                                       databaseReference.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                                            @Override
                                            public void onDataChange(final DataSnapshot dataSnapshotOne) {
-                                               if(dataSnapshotOne.exists())
+                                               if(!dataSnapshotOne.exists())
                                                {
                                                    final DatabaseReference newOne = FirebaseDatabase.getInstance().getReference();
-                                                   newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                   newOne.child("HotOrNot").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                                                        @Override
                                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                                           if(!dataSnapshot.exists()){
-                                                               UserData userFriendData = dataSnapshotOne.getValue(UserData.class);
+                                                           if(dataSnapshot.exists()){
+                                                               UserData userFriendData = dataSnapshot.getValue(UserData.class);
 
-                                                               if(userFriendData.getProfilePicUri()!=null && !userData.getGender().equals(userFriendData.getGender()))
+                                                               if(userFriendData!=null && userFriendData.getProfilePicUri()!=null && !(userFriendData.getGender().equals(userData.getGender())))
                                                                {
                                                                    Glide.with(getApplicationContext()).load(Uri.parse(userFriendData.getProfilePicUri())).fitCenter().into(imageView);
 
+                                                               }else {
+                                                                   i++;
+                                                                   getFriends();
                                                                }
-                                                               newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).setValue(id);
+
                                                            }else{
                                                                i++;
                                                                getFriends();
@@ -169,6 +178,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                                                }else {
+                                                    i++;
+                                                   getFriends();
 
                                                }
                                            }
@@ -181,8 +192,11 @@ public class MainActivity extends AppCompatActivity {
 
 
                                    }else{
+                                       Glide.with(getApplicationContext()).load(R.drawable.nofriendspic).fitCenter().into(imageView);
 
-                                        Toast.makeText(getApplicationContext(),"No more friends left,Please invite your friends",Toast.LENGTH_SHORT).show();
+                                       Toast.makeText(getApplicationContext(),"No more friends left,Please invite your friends",Toast.LENGTH_SHORT).show();
+                                       hot.setEnabled(false);
+                                       skip.setEnabled(false);
                                    }
 //                                    JSONObject data = jsonObject.getJSONObject("data");
 //                                    System.out.println("----data"+data);
