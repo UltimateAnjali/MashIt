@@ -19,9 +19,7 @@ public class UserData implements Serializable{
     private String profilePicUri;
 
     public UserData(){
-
         this.hotScore=0;
-
     }
 
     public String getProfilePicUri() {
