@@ -4,7 +4,8 @@
     <item
         android:id="@+id/shot"
         android:title="Shot"
-        android:icon="@mipmap/ic_whatshot_black_24dp" />
+        android:icon="@mipmap/ic_whatshot_black_24dp"
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/profile"
