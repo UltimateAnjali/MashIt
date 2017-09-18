@@ -18,7 +18,7 @@
             android:textSize="20sp"
             android:textColor="@color/colorBlack"
             android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginTop="4dp"/>
 
         <ImageView
@@ -28,7 +28,7 @@
             android:adjustViewBounds="true"
             android:id="@+id/profileImage"
             android:layout_gravity="center"
-            android:layout_marginBottom="6dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"/>
 

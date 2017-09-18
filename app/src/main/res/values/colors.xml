@@ -7,7 +7,8 @@
     <color name="button_ripple">#5C6BC0</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#ffffff</color>
-    <color name="colorGrey">#757575</color>
-    <color name="colorNavBack">#E0E0E0</color>
-    <color name="colorNavRipple">#BDBDBD</color>
+    <color name="colorGrey">#9E9E9E</color>
+    <color name="colorNavBack">#BDBDBD</color>
+    <color name="colorNavRipple">#757575</color>
+    <color name="background">#F5F5F5</color>
 </resources>

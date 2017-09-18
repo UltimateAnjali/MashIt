@@ -42,8 +42,6 @@ public class UserProfileFragment extends Fragment {
         {
             userData= (UserData) bundle.getSerializable("userObject");
         }
-
-
     }
 
     @Override
