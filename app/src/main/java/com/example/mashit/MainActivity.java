@@ -38,27 +38,31 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
     private AdView mAdView;
     BottomNavigationView bottomNavigationView;
     Bundle bundle;
+    static boolean flag=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        HashMap<String,String> params = new HashMap<String, String>();
+        params.put("regId", FirebaseInstanceId.getInstance().getToken());
         //Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         //setSupportActionBar(myToolbar);
-
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -91,7 +95,11 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                 });
-
+        if(flag) {
+            FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
+            transaction1.replace(R.id.frame_layout, UserProfileFragment.newInstance());
+            transaction1.commit();
+        }
         //Manually displaying the first fragment - one time only
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, RateFriendsFragment.newInstance());

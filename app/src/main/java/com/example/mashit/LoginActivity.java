@@ -37,6 +37,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -174,6 +175,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(task.isSuccessful())
                 {
                     AddUser(userData.getFbId());
+                    FirebaseMessaging.getInstance().subscribeToTopic(userData.getFbId());
                     Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(getApplicationContext(), "Authentication failed.",
