@@ -49,11 +49,12 @@ public class RateFriendsFragment extends Fragment {
 
     ImageView imageView;
     ImageView hot,skip;
-    TextView friend;
+    TextView friend, hotText, skipText;
     UserData userData;
     static String id;
     static int i=0;
     ImageButton imghot,imgskip;
+    Fonts myFontType;
 
     public RateFriendsFragment() {
     }
@@ -81,86 +82,20 @@ public class RateFriendsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_rate_friends, container, false);
         imageView = (ImageView) view.findViewById(R.id.profileImage);
-       // hot = (ImageView) view.findViewById(R.id.hotImage);
-        //skip = (ImageView) view.findViewById(R.id.skipImage);
         friend = (TextView)view.findViewById(R.id.friend_name);
         imghot = (ImageButton)view.findViewById(R.id.hot_round_btn);
         imgskip = (ImageButton)view.findViewById(R.id.skip_round_btn);
+        hotText = (TextView)view.findViewById(R.id.textHot);
+        skipText = (TextView)view.findViewById(R.id.textSkip);
+
+        myFontType = new Fonts(getContext());
+        friend.setTypeface(myFontType.getCinzelBoldFont());
+        hotText.setTypeface(myFontType.getCourgetteFont());
+        skipText.setTypeface(myFontType.getCourgetteFont());
 
         imghot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(id!=null)
-                {
-                    final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                    databaseReference.child("HotOrNot").child(id).child("hotScore").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(final DataSnapshot dataSnapshotScore) {
-
-                            final DatabaseReference newOne = FirebaseDatabase.getInstance().getReference();
-
-                            newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    if(!dataSnapshot.exists()) {
-                                        if (dataSnapshotScore != null) {
-                                            int temp = dataSnapshotScore.getValue(Integer.class);
-                                            dataSnapshotScore.getRef().setValue(temp + 1);
-                                            newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).child(id).getRef().setValue(true);
-                                        }
-                                        i++;
-                                        getFriends();
-                                    }else{
-                                    }
-                                }
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-            }
-        });
-
-        imgskip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatabaseReference newOne = FirebaseDatabase.getInstance().getReference();
-                newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).child(id).getRef().setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        i++;
-                        getFriends();
-                    }
-                });
-            }
-        });
-
-        /*skip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatabaseReference newOne = FirebaseDatabase.getInstance().getReference();
-                newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).child(id).getRef().setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        i++;
-                        getFriends();
-                    }
-                });
-            }
-        });*/
-
-
-        /*hot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 if(id!=null)
                 {
                     final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -201,7 +136,21 @@ public class RateFriendsFragment extends Fragment {
                 }
             }
         });
-        return view;*/
+
+        imgskip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseReference newOne = FirebaseDatabase.getInstance().getReference();
+                newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).child(id).getRef().setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        i++;
+                        getFriends();
+                    }
+                });
+            }
+        });
+
         return view;
     }
 
