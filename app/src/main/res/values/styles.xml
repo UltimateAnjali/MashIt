@@ -19,5 +19,4 @@
         <item name="android:textSize">20sp</item>
         <item name="android:background">@drawable/btn_round</item>
     </style>
-
 </resources>

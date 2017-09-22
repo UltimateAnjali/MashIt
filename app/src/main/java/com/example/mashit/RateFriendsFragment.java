@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +53,7 @@ public class RateFriendsFragment extends Fragment {
     UserData userData;
     static String id;
     static int i=0;
+    ImageButton imghot,imgskip;
 
     public RateFriendsFragment() {
     }
@@ -79,13 +81,57 @@ public class RateFriendsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_rate_friends, container, false);
         imageView = (ImageView) view.findViewById(R.id.profileImage);
-        hot = (ImageView) view.findViewById(R.id.hotImage);
-        skip = (ImageView) view.findViewById(R.id.skipImage);
+       // hot = (ImageView) view.findViewById(R.id.hotImage);
+        //skip = (ImageView) view.findViewById(R.id.skipImage);
         friend = (TextView)view.findViewById(R.id.friend_name);
+        imghot = (ImageButton)view.findViewById(R.id.hot_round_btn);
+        imgskip = (ImageButton)view.findViewById(R.id.skip_round_btn);
 
-        skip.setOnClickListener(new View.OnClickListener() {
+        imghot.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                if(id!=null)
+                {
+                    final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                    databaseReference.child("HotOrNot").child(id).child("hotScore").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(final DataSnapshot dataSnapshotScore) {
+
+                            final DatabaseReference newOne = FirebaseDatabase.getInstance().getReference();
+
+                            newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if(!dataSnapshot.exists()) {
+                                        if (dataSnapshotScore != null) {
+                                            int temp = dataSnapshotScore.getValue(Integer.class);
+                                            dataSnapshotScore.getRef().setValue(temp + 1);
+                                            newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).child(id).getRef().setValue(true);
+                                        }
+                                        i++;
+                                        getFriends();
+                                    }else{
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+        });
+
+        imgskip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 DatabaseReference newOne = FirebaseDatabase.getInstance().getReference();
                 newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).child(id).getRef().setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -97,8 +143,22 @@ public class RateFriendsFragment extends Fragment {
             }
         });
 
+        /*skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference newOne = FirebaseDatabase.getInstance().getReference();
+                newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).child(id).getRef().setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        i++;
+                        getFriends();
+                    }
+                });
+            }
+        });*/
 
-        hot.setOnClickListener(new View.OnClickListener() {
+
+        /*hot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(id!=null)
@@ -141,6 +201,7 @@ public class RateFriendsFragment extends Fragment {
                 }
             }
         });
+        return view;*/
         return view;
     }
 

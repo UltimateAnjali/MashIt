@@ -37,7 +37,7 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_margin="0dp"
-        android:elevation="4dp"
+        android:elevation="6dp"
         android:background="@color/background"
         app:itemIconTint="@drawable/nav_item_color_state"
         app:itemTextColor="@drawable/nav_item_color_state"

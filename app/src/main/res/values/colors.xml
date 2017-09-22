@@ -10,5 +10,7 @@
     <color name="colorGrey">#9E9E9E</color>
     <color name="colorNavBack">#BDBDBD</color>
     <color name="colorNavRipple">#757575</color>
-    <color name="background">#F5F5F5</color>
+    <color name="background">#EDEDED</color>
+    <color name="hotRed">#FF3D00</color>
+    <color name="coolGreen">#00E676</color>
 </resources>

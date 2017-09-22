@@ -23,8 +23,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxHeight="250dp"
+            android:layout_height="250dp"
             android:adjustViewBounds="true"
             android:id="@+id/profileImage"
             android:layout_gravity="center"
@@ -43,12 +42,14 @@
                 android:orientation="vertical"
                 android:layout_weight="1">
 
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:id="@+id/hotImage"
-                    app:srcCompat="@drawable/burn"
-                    android:layout_gravity="center" />
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/hot_round_btn"
+                    android:layout_gravity="center"
+                    android:background="@drawable/hot_btn_drawable"
+                    android:src="@mipmap/ic_whatshot_white_24dp"
+                    app:elevation="4dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -65,12 +66,14 @@
                 android:orientation="vertical"
                 android:layout_weight="1">
 
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:id="@+id/skipImage"
-                    app:srcCompat="@drawable/right_arrow"
-                    android:layout_gravity="center" />
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/skip_round_btn"
+                    android:layout_gravity="center"
+                    android:background="@drawable/skip_btn_drawable"
+                    android:src="@mipmap/ic_keyboard_arrow_right_white_24dp"
+                    app:elevation="4dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -82,5 +85,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
+
     </LinearLayout>
 </RelativeLayout>

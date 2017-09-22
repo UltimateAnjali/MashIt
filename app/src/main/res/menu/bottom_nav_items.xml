@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/shot"
-        android:title="Shot"
-        android:icon="@mipmap/ic_whatshot_black_24dp"
+        android:title="Rate People"
+        android:icon="@mipmap/ic_collections_black_24dp"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/profile"
-        android:title="Profile"
+        android:title="You"
         android:icon="@mipmap/ic_person_black_24dp" />
 </menu>
