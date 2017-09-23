@@ -23,6 +23,7 @@ public class UserProfileFragment extends Fragment {
     UserData userData;
     TextView username, hotRate;
     ImageView myImage;
+    Fonts myFontType;
 
     public UserProfileFragment() {
 
@@ -52,9 +53,13 @@ public class UserProfileFragment extends Fragment {
         myImage = (ImageView)view.findViewById(R.id.user_image);
         hotRate = (TextView)view.findViewById(R.id.hotness_score);
 
+        myFontType = new Fonts(getContext());
+        username.setTypeface(myFontType.getCinzelBoldFont());
+        hotRate.setTypeface(myFontType.getCourgetteFont());
+
         username.setText(userData.getName());
         Glide.with(getContext()).load(Uri.parse(userData.getProfilePicUri())).fitCenter().into(myImage);
-        hotRate.setText("Hotness score:"+userData.getHotScore());
+        hotRate.setText("Hotness score: "+userData.getHotScore());
 
         return view;
     }

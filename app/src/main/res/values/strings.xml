@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RateHot</string>
+    <string name="app_name">HotVote</string>
     <string name="facebook_app_id">745436418997139</string>
     <string name="fb_login_protocol_scheme">fb745436418997139</string>
 </resources>
