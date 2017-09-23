@@ -15,10 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphRequestBatch;
@@ -55,6 +59,7 @@ public class RateFriendsFragment extends Fragment {
     static int i=0;
     ImageButton imghot,imgskip;
     Fonts myFontType;
+    ProgressBar progressBar;
 
     public RateFriendsFragment() {
     }
@@ -94,6 +99,8 @@ public class RateFriendsFragment extends Fragment {
         hotText = (TextView)view.findViewById(R.id.textHot);
         skipText = (TextView)view.findViewById(R.id.textSkip);
 
+        progressBar = (ProgressBar)view.findViewById(R.id.progress_bar1);
+
         myFontType = new Fonts(getContext());
         friend.setTypeface(myFontType.getCinzelBoldFont());
         hotText.setTypeface(myFontType.getCourgetteFont());
@@ -102,6 +109,7 @@ public class RateFriendsFragment extends Fragment {
         imghot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
                 if(id!=null)
                 {
                     final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -146,6 +154,7 @@ public class RateFriendsFragment extends Fragment {
         imgskip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
                 DatabaseReference newOne = FirebaseDatabase.getInstance().getReference();
                 newOne.child("HotOrNot").child("UserViewedList").child(userData.getFbId()).child(id).getRef().setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -256,7 +265,23 @@ public class RateFriendsFragment extends Fragment {
 
                                                                 if(userFriendData!=null && userFriendData.getProfilePicUri()!=null && !(userFriendData.getGender().equals(userData.getGender())))
                                                                 {
-                                                                    Glide.with(getContext()).load(Uri.parse(userFriendData.getProfilePicUri())).fitCenter().into(imageView);
+                                                                    Glide.with(getContext())
+                                                                            .load(Uri.parse(userFriendData.getProfilePicUri()))
+                                                                            .listener(new RequestListener<Uri, GlideDrawable>() {
+                                                                                @Override
+                                                                                public boolean onException(Exception e, Uri model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                                                                    progressBar.setVisibility(View.GONE);
+                                                                                    return false;
+                                                                                }
+
+                                                                                @Override
+                                                                                public boolean onResourceReady(GlideDrawable resource, Uri model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                                                                    progressBar.setVisibility(View.GONE);
+                                                                                    return false;
+                                                                                }
+                                                                            })
+                                                                            .fitCenter()
+                                                                            .into(imageView);
                                                                     friend.setText(userFriendData.getName());
 
                                                                 }else {

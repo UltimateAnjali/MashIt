@@ -2,5 +2,5 @@
     <string name="app_name">HotVote</string>
     <string name="facebook_app_id">745436418997139</string>
     <string name="fb_login_protocol_scheme">fb745436418997139</string>
-    <string name="app_details">Rate your friends for their hotness.</string>
+    <string name="app_details">Rate your friends anonymously for their hotness.</string>
 </resources>
