@@ -289,8 +289,8 @@ public class RateFriendsFragment extends Fragment {
                                         Glide.with(getContext()).load(R.drawable.nofriendspic).fitCenter().into(imageView);
                                         friend.setText("");
                                         Toast.makeText(getContext(),"No more friends left,Please invite your friends",Toast.LENGTH_SHORT).show();
-                                        hot.setEnabled(false);
-                                        skip.setEnabled(false);
+                                        imghot.setEnabled(false);
+                                        imgskip.setEnabled(false);
                                     }
 //                                    JSONObject data = jsonObject.getJSONObject("data");
 //                                    System.out.println("----data"+data);
