@@ -78,6 +78,12 @@ public class RateFriendsFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        i=0;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_rate_friends, container, false);

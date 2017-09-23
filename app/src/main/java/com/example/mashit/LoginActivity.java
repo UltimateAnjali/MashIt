@@ -96,9 +96,10 @@ public class LoginActivity extends AppCompatActivity {
                     String fbId = sharedpreferences.getString("fbId","none");
                     if(!fbId.equals("none"))
                     {
-                        AddUser(fbId);
+                        AddUser(fbId,getApplicationContext());
                     }else {
                         FirebaseAuth.getInstance().signOut();
+
                     }
                 }else{
 
@@ -194,7 +195,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
-                    AddUser(userData.getFbId());
+                    AddUser(userData.getFbId(),getApplicationContext());
                     FirebaseMessaging.getInstance().subscribeToTopic(userData.getFbId());
                     Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_SHORT).show();
                 }else{
@@ -211,7 +212,16 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode,resultCode,data);
     }
 
-    public void AddUser(final String fbId){
+    public void onBackPressed() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
+
+    }
+
+
+    public void AddUser(final String fbId, final Context context){
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("HotOrNot").child(fbId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -236,9 +246,10 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 if(bundle!=null) {
-                    intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent = new Intent(context, MainActivity.class);
                     intent.putExtras(bundle);
-                    startActivity(intent);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
 
                     //fragment.setArguments(bundle);
                 }

@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/hotness_score"
             android:text="Hotness score"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:textColor="@color/colorBlack"
             android:layout_gravity="center"
             android:gravity="center"
