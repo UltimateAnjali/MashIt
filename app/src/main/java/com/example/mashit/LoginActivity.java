@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +13,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookAuthorizationException;
@@ -47,13 +51,14 @@ import java.util.Arrays;
 public class LoginActivity extends AppCompatActivity {
 
     Button loginButton;
-    //LoginButton loginButton;
-    //TextView textView;
+    TextView appname, appdetails;
     CallbackManager callbackManager;
     LoginManager fbLoginManager;
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
     UserData userData;
+    Fonts myFontType;
+    ImageView logo;
 
     @Override
     protected void onStart() {
@@ -66,6 +71,18 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //Glide.with(getApplicationContext()).load(Uri.parse(userFriendData.getProfilePicUri())).fitCenter().into(rel);
+        loginButton = (Button)findViewById(R.id.fb_login_btn);
+        appname = (TextView)findViewById(R.id.app_name);
+        appdetails = (TextView)findViewById(R.id.app_details);
+        logo = (ImageView)findViewById(R.id.app_logo);
+
+        myFontType = new Fonts(getApplicationContext());
+        appname.setTypeface(myFontType.getLobsterFont());
+        appdetails.setTypeface(myFontType.getKaushanFont());
+        logo.setImageResource(R.drawable.flame_icon);
+
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         fbLoginManager = com.facebook.login.LoginManager.getInstance();
@@ -90,7 +107,10 @@ public class LoginActivity extends AppCompatActivity {
         };
 
         mAuth = FirebaseAuth.getInstance();
-        loginButton = (Button)findViewById(R.id.fb_login_btn);
+
+
+
+
         //loginButton = (LoginButton) findViewById(R.id.fb_login_btn);
 
         //textView = (TextView)findViewById(R.id.login_status_text);

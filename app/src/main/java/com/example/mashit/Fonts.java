@@ -19,8 +19,30 @@ public class Fonts {
         return myType;
     }
 
+    public Typeface getCinzelFont(){
+        Typeface myType = Typeface.createFromAsset(context.getAssets(),"fonts/Cinzel-Regular.ttf");
+        return myType;
+    }
+
     public Typeface getCourgetteFont(){
         Typeface myType = Typeface.createFromAsset(context.getAssets(),"fonts/Courgette-Regular.ttf");
         return myType;
     }
+
+    public Typeface getBreeSerifFont(){
+        Typeface myType = Typeface.createFromAsset(context.getAssets(),"fonts/BreeSerif-Regular.ttf");
+        return myType;
+    }
+
+    public Typeface getKaushanFont(){
+        Typeface myType = Typeface.createFromAsset(context.getAssets(),"fonts/KaushanScript-Regular.ttf");
+        return myType;
+    }
+
+    public Typeface getLobsterFont(){
+        Typeface myType = Typeface.createFromAsset(context.getAssets(),"fonts/Lobster-Regular.ttf");
+        return myType;
+    }
+
+
 }
