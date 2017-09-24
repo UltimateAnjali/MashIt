@@ -1,4 +1,4 @@
-package com.example.mashit;
+package com.staffone.mashit;
 
 /**
  * Created by staffonechristian on 2017-02-25.

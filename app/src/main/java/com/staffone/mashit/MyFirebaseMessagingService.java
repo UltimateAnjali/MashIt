@@ -1,4 +1,4 @@
-package com.example.mashit;
+package com.staffone.mashit;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;

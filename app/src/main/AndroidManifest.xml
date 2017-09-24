@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.mashit">
+    package="com.staffone.mashit">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,21 +17,21 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".SplashActivity" android:theme="@style/AppTheme">
+        <activity android:name="com.staffone.mashit.SplashActivity" android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" android:theme="@style/MyTheme"/>
-        <activity android:name=".MainActivity" android:theme="@style/MyTheme"/>
+        <activity android:name="com.staffone.mashit.LoginActivity" android:theme="@style/MyTheme"/>
+        <activity android:name="com.staffone.mashit.MainActivity" android:theme="@style/MyTheme"/>
 
-        <service android:name=".MyFirebaseMessagingService">
+        <service android:name="com.staffone.mashit.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".MyFirebaseInstanceIDService">
+        <service android:name="com.staffone.mashit.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
