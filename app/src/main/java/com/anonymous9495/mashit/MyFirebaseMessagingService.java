@@ -56,6 +56,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     .setSmallIcon(R.drawable.flame_icon)
                     .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(),
                             R.drawable.flame_icon))
+                    .setColor((getColor(R.color.colorAccent)))
                     .setContentTitle(URLDecoder.decode(notificationData.getTitle(),"UTF-8"))
                     .setContentText(URLDecoder.decode(notificationData.getTextMessage(),"UTF-8"))
                     .setAutoCancel(true)

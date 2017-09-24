@@ -173,7 +173,7 @@ public class RateFriendsFragment extends Fragment {
         JSONObject info = new JSONObject();
         try {
             info.put("title", "Hotness Score");   // Notification title
-            info.put("body", "Plus one score by your friend ;)"); // Notification body
+            info.put("body", "You were rated hot by your friend"); // Notification body
             info.put("sound", "default"); // Notification sound
             json.put("notification", info);
             json.put("to", "/topics/"+id);

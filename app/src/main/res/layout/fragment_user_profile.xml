@@ -29,7 +29,7 @@
             android:id="@+id/user_image"
             android:layout_gravity="center"
             android:gravity="center"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"/>
 
@@ -44,12 +44,20 @@
             android:gravity="center"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp" />
+
+
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Share"
+            android:text="Share your score"
             android:id="@+id/shareButton"
-            />
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:textAllCaps="false"
+            style="@style/shareButtonTheme"
+            android:layout_centerHorizontal="true"/>
 
     </LinearLayout>
 
