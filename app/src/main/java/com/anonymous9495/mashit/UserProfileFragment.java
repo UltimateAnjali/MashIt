@@ -69,7 +69,7 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                String message = "My hotness Score: "+userData.getHotScore()+ " Download an app from https://play.google.com/store/apps/details?id=com.staffone.mashit  ";
+                String message = "My hotness Score: "+userData.getHotScore()+ "\nDownload app from https://play.google.com/store/apps/details?id=com.staffone.mashit  ";
                 Intent share = new Intent(Intent.ACTION_SEND);
                 share.setType("text/plain");
 
