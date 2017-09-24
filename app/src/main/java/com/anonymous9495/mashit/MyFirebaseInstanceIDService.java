@@ -1,4 +1,4 @@
-package com.staffone.mashit;
+package com.anonymous9495.mashit;
 
 import android.util.Log;
 

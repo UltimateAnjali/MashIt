@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.staffone.mashit.UserProfileFragment">
+    tools:context="com.anonymous9495.mashit.UserProfileFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,6 +44,12 @@
             android:gravity="center"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Share"
+            android:id="@+id/shareButton"
+            />
 
     </LinearLayout>
 
