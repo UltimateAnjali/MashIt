@@ -54,10 +54,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             notificationBuilder = new NotificationCompat.Builder(this)
                     .setSmallIcon(R.drawable.flame_icon)
-                    .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                            R.drawable.flame_icon))
-                    .setColor((getColor(R.color.colorAccent)))
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.flame_icon))
                     .setContentTitle(URLDecoder.decode(notificationData.getTitle(),"UTF-8"))
+                    .setColor((getColor(R.color.colorAccent)))
                     .setContentText(URLDecoder.decode(notificationData.getTextMessage(),"UTF-8"))
                     .setAutoCancel(true)
                     .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
