@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -22,6 +23,10 @@ import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphRequestBatch;
 import com.facebook.GraphResponse;
+import com.facebook.share.model.AppInviteContent;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.AppInviteDialog;
+import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,6 +58,8 @@ public class RateFriendsFragment extends Fragment {
     ImageButton imghot,imgskip;
     Fonts myFontType;
     ProgressBar progressBar;
+    Button invite;
+    String applink="https://play.google.com/store/apps/details?id=com.staffone.mashit";
 
     public RateFriendsFragment() {
     }
@@ -91,6 +98,7 @@ public class RateFriendsFragment extends Fragment {
         imgskip = (ImageButton)view.findViewById(R.id.skip_round_btn);
         hotText = (TextView)view.findViewById(R.id.textHot);
         skipText = (TextView)view.findViewById(R.id.textSkip);
+        invite = (Button)view.findViewById(R.id.inviteFriendsBtn);
 
         progressBar = (ProgressBar)view.findViewById(R.id.progress_bar1);
 
@@ -98,6 +106,8 @@ public class RateFriendsFragment extends Fragment {
         friend.setTypeface(myFontType.getCinzelBoldFont());
         hotText.setTypeface(myFontType.getCourgetteFont());
         skipText.setTypeface(myFontType.getCourgetteFont());
+
+        imageView.setVisibility(View.VISIBLE);
 
         imghot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,6 +166,21 @@ public class RateFriendsFragment extends Fragment {
                         getFriends();
                     }
                 });
+            }
+        });
+
+        invite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(ShareDialog.canShow(ShareLinkContent.class)){
+                    ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                            .setContentUrl(Uri.parse(applink))
+                            .build();
+                    ShareDialog.show(getActivity(),linkContent);
+                }
+                else {
+                    Toast.makeText(getActivity(),"Unable to share.. Try Again.. ",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -249,6 +274,11 @@ public class RateFriendsFragment extends Fragment {
                                             public void onDataChange(final DataSnapshot dataSnapshotOne) {
                                                 if(!dataSnapshotOne.exists())
                                                 {
+                                                    imghot.setVisibility(View.VISIBLE);
+                                                    imgskip.setVisibility(View.VISIBLE);
+                                                    imageView.setVisibility(View.VISIBLE);
+                                                    progressBar.setVisibility(View.VISIBLE);
+                                                    invite.setVisibility(View.GONE);
                                                     final DatabaseReference newOne = FirebaseDatabase.getInstance().getReference();
                                                     newOne.child("HotOrNot").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                                                         @Override
@@ -310,11 +340,17 @@ public class RateFriendsFragment extends Fragment {
 
 
                                     }else{
-                                        Glide.with(getContext()).load(R.drawable.nofriendspic).fitCenter().into(imageView);
+                                        invite.setVisibility(View.VISIBLE);
+                                        progressBar.setVisibility(View.GONE);
+                                        imageView.setVisibility(View.GONE);
                                         friend.setText("");
-                                        Toast.makeText(getContext(),"No more friends left,Please invite your friends",Toast.LENGTH_SHORT).show();
-                                        imghot.setEnabled(false);
-                                        imgskip.setEnabled(false);
+                                        hotText.setText("");
+                                        skipText.setText("");
+                                        Toast.makeText(getContext(),"No more friends left,Please invite your friends",Toast.LENGTH_LONG).show();
+                                        imghot.setVisibility(View.GONE);
+                                        imgskip.setVisibility(View.GONE);
+                                        //imghot.setEnabled(false);
+                                        //imgskip.setEnabled(false);
                                     }
 //                                    JSONObject data = jsonObject.getJSONObject("data");
 //                                    System.out.println("----data"+data);

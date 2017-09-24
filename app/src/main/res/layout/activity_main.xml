@@ -52,6 +52,6 @@
         android:layout_marginBottom="8dp"
         android:layout_centerHorizontal="true"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-2924610599659520/8333827117">
+        ads:adUnitId="@string/admob_key">
     </com.google.android.gms.ads.AdView>
 </RelativeLayout>
